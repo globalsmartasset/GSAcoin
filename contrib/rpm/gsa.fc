@@ -1,0 +1,8 @@
+/usr/bin/gsa-cli		--	gen_context(system_u:object_r:gsa_exec_t,s0)
+/usr/sbin/gsad		--	gen_context(system_u:object_r:gsa_exec_t,s0)
+/usr/lib(64)?/gsa/gsad		--	gen_context(system_u:object_r:gsa_exec_t,s0)
+
+/etc/gsa(/.*)?		gen_context(system_u:object_r:gsa_conf_t,s0)
+/var/lib/gsa(/.*)?		gen_context(system_u:object_r:gsa_var_lib_t,s0)
+
+(/var)?/run/gsad(/.*)?   gen_context(system_u:object_r:gsa_var_run_t,s0)

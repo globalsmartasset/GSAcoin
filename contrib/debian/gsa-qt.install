@@ -1,0 +1,6 @@
+usr/local/bin/gsa-qt usr/bin
+share/pixmaps/gsa32.xpm usr/share/pixmaps
+share/pixmaps/gsa16.xpm usr/share/pixmaps
+share/pixmaps/gsa128.png usr/share/pixmaps
+debian/gsa-qt.desktop usr/share/applications
+debian/gsa-qt.protocol usr/share/kde4/services/

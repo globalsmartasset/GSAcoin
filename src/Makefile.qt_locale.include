@@ -1,0 +1,15 @@
+QT_TS = \
+  qt/locale/gsa_de.ts \
+  qt/locale/gsa_en.ts \
+  qt/locale/gsa_en_US.ts \
+  qt/locale/gsa_es.ts \
+  qt/locale/gsa_es_ES.ts \
+  qt/locale/gsa_fr_FR.ts \
+  qt/locale/gsa_hr_HR.ts \
+  qt/locale/gsa_it.ts \
+  qt/locale/gsa_ko_KR.ts \
+  qt/locale/gsa_nl.ts \
+  qt/locale/gsa_pl.ts \
+  qt/locale/gsa_ru.ts \
+  qt/locale/gsa_tr.ts \
+  qt/locale/gsa_zh_CN.ts

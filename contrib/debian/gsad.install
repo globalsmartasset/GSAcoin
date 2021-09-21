@@ -1,0 +1,3 @@
+usr/local/bin/gsad usr/bin
+usr/local/bin/gsa-cli usr/bin
+debian/examples/gsa.conf etc/gsa

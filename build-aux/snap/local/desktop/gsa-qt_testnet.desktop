@@ -1,0 +1,15 @@
+# http://standards.freedesktop.org/desktop-entry-spec/desktop-entry-spec-1.0.html
+
+[Desktop Entry]
+Encoding=UTF-8
+Name=PIVX Core
+Comment=PIVX Core QT test network
+GenericName=PIVX Digital Currency QT client testnet network
+Exec=gsa-core.qt-testnet %u
+Terminal=false
+Type=Application
+Icon=${SNAP}/share/pixmaps/gsa_testnet.png
+MimeType=x-scheme-handler/gsa;
+Categories=X-Office;X-Finance;
+Keywords=internet;gsa;zgsa;tgsa;core;wallet;qt;testnet;snap;launchpad;crypto;digital;currency;coin;token;zerocoin;
+Version=1.0

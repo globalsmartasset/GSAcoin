@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Name=GlobalSmartAsset 
+Comment=GlobalSmartAsset P2P Cryptocurrency
+Comment[fr]=GlobalSmartAsset, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=GlobalSmartAsset, eşten eşe kriptografik sanal para birimi
+Exec=gsa-qt %u
+Terminal=false
+Type=Application
+Icon=gsa128
+MimeType=x-scheme-handler/globalsmartasset;
+Categories=Office;Finance;
+StartupWMClass=gsa-qt

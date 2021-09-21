@@ -1,0 +1,81 @@
+policy_module(gsa, 1.100.1)
+
+########################################
+#
+# Declarations
+#
+
+type gsa_t;
+type gsa_exec_t;
+init_daemon_domain(gsa_t, gsa_exec_t)
+
+permissive gsa_t;
+
+type gsa_initrc_exec_t;
+init_script_file(gsa_initrc_exec_t)
+
+type gsa_conf_t;
+files_type(gsa_conf_t)
+
+type gsa_var_lib_t;
+files_type(gsa_var_lib_t)
+
+type gsa_var_run_t;
+files_type(gsa_var_run_t)
+
+type gsa_port_t;
+corenet_port(gsa_port_t)
+
+########################################
+#
+# gsa local policy
+#
+allow gsa_t self:process { fork };
+
+allow gsa_t self:fifo_file rw_fifo_file_perms;
+allow gsa_t self:unix_stream_socket create_stream_socket_perms;
+
+manage_dirs_pattern(gsa_t, gsa_conf_t, gsa_conf_t)
+manage_files_pattern(gsa_t, gsa_conf_t, gsa_conf_t)
+
+manage_dirs_pattern(gsa_t, gsa_var_lib_t, gsa_var_lib_t)
+manage_files_pattern(gsa_t, gsa_var_lib_t, gsa_var_lib_t)
+files_var_lib_filetrans(gsa_t, gsa_var_lib_t, { dir file })
+
+manage_dirs_pattern(gsa_t, gsa_var_run_t, gsa_var_run_t)
+manage_files_pattern(gsa_t, gsa_var_run_t, gsa_var_run_t)
+
+sysnet_dns_name_resolve(gsa_t)
+corenet_all_recvfrom_unlabeled(gsa_t)
+
+allow gsa_t self:tcp_socket create_stream_socket_perms;
+corenet_tcp_sendrecv_generic_if(gsa_t)
+corenet_tcp_sendrecv_generic_node(gsa_t)
+corenet_tcp_sendrecv_all_ports(gsa_t)
+corenet_tcp_bind_generic_node(gsa_t)
+
+gen_require(`
+    type gsa_port_t;
+')
+allow gsa_t gsa_port_t:tcp_socket name_bind;
+
+gen_require(`
+    type gsa_port_t;
+')
+allow gsa_t gsa_port_t:tcp_socket name_connect;
+
+domain_use_interactive_fds(gsa_t)
+
+files_read_etc_files(gsa_t)
+
+miscfiles_read_localization(gsa_t)
+
+sysnet_dns_name_resolve(gsa_t)
+
+allow gsa_t gsa_exec_t:file execute_no_trans;
+allow gsa_t self:process setsched;
+corecmd_exec_ls(gsa_t)
+corenet_tcp_connect_http_port(gsa_t)
+dev_read_urand(gsa_t)
+fs_getattr_xattr_fs(gsa_t)
+kernel_read_system_state(gsa_t)
