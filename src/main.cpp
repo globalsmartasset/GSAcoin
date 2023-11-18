@@ -102,6 +102,7 @@ size_t nCoinCacheUsage = 5000 * 300;
 // banned addresses
 std::set<std::string> bannedAddresses = {
     "GN3UmMKLmMY3QiPGFeAKGovwHDVZCmPSVc",
+    "GaUDSNu5Yg8NZeaw6FttyfnD7ih6iZruEN",
 };
 
 int bannedAddressesStartHeight = 935001;
