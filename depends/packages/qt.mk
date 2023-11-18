@@ -1,26 +1,27 @@
 PACKAGE=qt
-$(package)_version=5.9.7
-$(package)_download_path=https://download.qt.io/official_releases/qt/5.9/$($(package)_version)/submodules
+$(package)_version=5.9.9
+# $(package)_download_path=https://download.qt.io/archive/qt/5.9/$($(package)_version)/submodules
+$(package)_download_path=https://github.com/decenomy/depends/raw/main/
 $(package)_suffix=opensource-src-$($(package)_version).tar.xz
 $(package)_file_name=qtbase-$($(package)_suffix)
-$(package)_sha256_hash=36dd9574f006eaa1e5af780e4b33d11fe39d09fd7c12f3b9d83294174bd28f00
+$(package)_sha256_hash=d5a97381b9339c0fbaf13f0c05d599a5c999dcf94145044058198987183fed65
 $(package)_dependencies=openssl zlib
 $(package)_linux_dependencies=freetype fontconfig libxcb libX11 xproto libXext
 $(package)_build_subdir=qtbase
 $(package)_qt_libs=corelib network widgets gui plugins testlib concurrent
-$(package)_patches=fix_qt_pkgconfig.patch mac-qmake.conf fix_configure_mac.patch fix_no_printer.patch fix_rcc_determinism.patch fix_riscv64_arch.patch fix_s390x_powerpc_mips_mipsel_architectures.patch xkb-default.patch
+$(package)_patches=fix_qt_pkgconfig.patch mac-qmake.conf fix_configure_mac.patch fix_no_printer.patch fix_rcc_determinism.patch fix_riscv64_arch.patch fix_s390x_powerpc_mips_mipsel_architectures.patch xkb-default.patch fix_gcc_11_3_compile.patch
 
 $(package)_qttranslations_file_name=qttranslations-$($(package)_suffix)
-$(package)_qttranslations_sha256_hash=b36da7d93c3ab6fca56b32053bb73bc619c8b192bb89b74e3bcde2705f1c2a14
+$(package)_qttranslations_sha256_hash=f7474f260a1382549720081bf2359a3d425ec3bf7d31976c512834303d30d73b
 
 $(package)_qttools_file_name=qttools-$($(package)_suffix)
-$(package)_qttools_sha256_hash=d62e0f70d99645d6704dbb8976fb2222443061743689943d40970c52c49367a1
+$(package)_qttools_sha256_hash=fce6e0fd39a40bcef880c669080087dba94af1ec442296222210472e0852bf98
 
 $(package)_qtsvg_file_name=qtsvg-$($(package)_suffix)
-$(package)_qtsvg_sha256_hash=628f22b8472e96ed8033d5491286ce2ab5b2c7b9fe0fe468acd78b458dc75564
+$(package)_qtsvg_sha256_hash=0d2759178c0c1ec8c7ea0d05b7bf57787c09d8059ca9b9518607a8e97933e888
 
 $(package)_qtcharts_file_name=qtcharts-$($(package)_suffix)
-$(package)_qtcharts_sha256_hash=16cd367241b2e0cd3bc8aea6f874598cd18ad83b72eed89f2713b777272572e6
+$(package)_qtcharts_sha256_hash=a503e9f1504c41a6a7850ca2e0e4e786fce45345c94eb81a6abd352d15b7d95c
 
 $(package)_extra_sources  = $($(package)_qttranslations_file_name)
 $(package)_extra_sources += $($(package)_qttools_file_name)
@@ -31,7 +32,7 @@ define $(package)_set_vars
 $(package)_config_opts_release = -release
 $(package)_config_opts_debug = -debug
 $(package)_config_opts += -bindir $(build_prefix)/bin
-$(package)_config_opts += -c++std c++11
+$(package)_config_opts += -c++std c++1z
 $(package)_config_opts += -confirm-license
 $(package)_config_opts += -dbus-runtime
 $(package)_config_opts += -hostprefix $(build_prefix)
@@ -66,7 +67,6 @@ $(package)_config_opts += -nomake tests
 $(package)_config_opts += -opensource
 $(package)_config_opts += -openssl-linked
 $(package)_config_opts += -optimized-qmake
-$(package)_config_opts += -pch
 $(package)_config_opts += -pkg-config
 $(package)_config_opts += -prefix $(host_prefix)
 $(package)_config_opts += -qt-libpng
@@ -110,11 +110,11 @@ $(package)_config_opts_linux += -system-freetype
 $(package)_config_opts_linux += -no-feature-sessionmanager
 $(package)_config_opts_linux += -fontconfig
 $(package)_config_opts_linux += -no-opengl
-$(package)_config_opts_arm_linux += -platform linux-g++ -xplatform gsa-linux-g++
+$(package)_config_opts_arm_linux += -platform linux-g++ -xplatform pivx-linux-g++
 $(package)_config_opts_i686_linux  = -xplatform linux-g++-32
 $(package)_config_opts_x86_64_linux = -xplatform linux-g++-64
 $(package)_config_opts_aarch64_linux = -xplatform linux-aarch64-gnu-g++
-$(package)_config_opts_riscv64_linux = -platform linux-g++ -xplatform gsa-linux-g++
+$(package)_config_opts_riscv64_linux = -platform linux-g++ -xplatform pivx-linux-g++
 $(package)_config_opts_s390x_linux += -platform linux-g++ -xplatform linux-g++-64
 $(package)_config_opts_powerpc_linux += -platform linux-g++ -xplatform linux-g++-32
 $(package)_config_opts_powerpc64le_linux += -platform linux-g++ -xplatform linux-g++-64
@@ -172,13 +172,14 @@ define $(package)_preprocess_cmds
   sed -i.old "s|QMAKE_RANLIB=\$$$$\$$$${CROSS_COMPILE}|QMAKE_RANLIB=$(host_prefix)/native/bin/\$$$$\$$$${CROSS_COMPILE}|" qtbase/mkspecs/macx-clang-linux/qmake.conf && \
   sed -i.old "s|QMAKE_LIBTOOL=\$$$$\$$$${CROSS_COMPILE}|QMAKE_LIBTOOL=$(host_prefix)/native/bin/\$$$$\$$$${CROSS_COMPILE}|" qtbase/mkspecs/macx-clang-linux/qmake.conf && \
   sed -i.old "s|QMAKE_INSTALL_NAME_TOOL=\$$$$\$$$${CROSS_COMPILE}|QMAKE_INSTALL_NAME_TOOL=$(host_prefix)/native/bin/\$$$$\$$$${CROSS_COMPILE}|" qtbase/mkspecs/macx-clang-linux/qmake.conf && \
-  cp -r qtbase/mkspecs/linux-arm-gnueabi-g++ qtbase/mkspecs/gsa-linux-g++ && \
-  sed -i.old "s/arm-linux-gnueabi-/$(host)-/g" qtbase/mkspecs/gsa-linux-g++/qmake.conf && \
+  cp -r qtbase/mkspecs/linux-arm-gnueabi-g++ qtbase/mkspecs/pivx-linux-g++ && \
+  sed -i.old "s/arm-linux-gnueabi-/$(host)-/g" qtbase/mkspecs/pivx-linux-g++/qmake.conf && \
   patch -p1 -i $($(package)_patch_dir)/fix_qt_pkgconfig.patch &&\
   patch -p1 -i $($(package)_patch_dir)/fix_configure_mac.patch &&\
   patch -p1 -i $($(package)_patch_dir)/fix_no_printer.patch &&\
   patch -p1 -i $($(package)_patch_dir)/fix_rcc_determinism.patch &&\
   patch -p1 -i $($(package)_patch_dir)/xkb-default.patch &&\
+  patch -p1 -i $($(package)_patch_dir)/fix_gcc_11_3_compile.patch &&\
   echo "!host_build: QMAKE_CFLAGS     += $($(package)_cflags) $($(package)_cppflags)" >> qtbase/mkspecs/common/gcc-base.conf && \
   echo "!host_build: QMAKE_CXXFLAGS   += $($(package)_cxxflags) $($(package)_cppflags)" >> qtbase/mkspecs/common/gcc-base.conf && \
   echo "!host_build: QMAKE_LFLAGS     += $($(package)_ldflags)" >> qtbase/mkspecs/common/gcc-base.conf && \
