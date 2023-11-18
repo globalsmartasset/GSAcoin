@@ -29,6 +29,6 @@ fi
 	cd ..
 
 # Create zip file of binaries
-	cp GSACOIN/src/__decenomy__d GSACOIN/GSACOIN/__decenomy__-cli DSW/GSACOIN/__decenomy__-tx GSACOIN/src/qt/__decenomy__-qt .
+	cp GSACOIN/src/__decenomy__d GSACOIN/GSACOIN/__decenomy__-cli GSACOIN/GSACOIN/__decenomy__-tx GSACOIN/src/qt/__decenomy__-qt .
 	zip __GSACOIN__-$(git describe --abbrev=0 --tags | sed s/v//)-Linux.zip __decenomy__d __decenomy__-cli __decenomy__-tx __decenomy__-qt
 	rm -f __decenomy__d __decenomy__-cli __decenomy__-tx __decenomy__-qt
