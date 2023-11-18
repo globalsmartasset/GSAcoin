@@ -23,5 +23,5 @@ fi
 
 # Create zip file of binaries
 	cp GSACOIN/src/gsad GSACOIN/src/gsa-cli GSACOIN/src/gsa-tx GSACOIN/src/qt/gsa-qt .
-    zip GSA-MacOS.zip gsad gsa-cli gsa-tx gsa-qt
+    zip GSA-Linux.zip gsad gsa-cli gsa-tx gsa-qt
     rm -f gsad gsa-cli gsa-tx gsa-qt
