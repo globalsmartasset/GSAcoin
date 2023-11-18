@@ -6,13 +6,6 @@ then
     CPU_CORES=1
 fi
 
-# Clone code from official Github repository
-    rm -rf GSACOIN
-    git clone https://github.com/globalsmartasset/GSAcoin.git
-
-# Entering directory
-    cd GSACOIN
-
 # Compile dependencies
     cd depends
     mkdir SDKs
@@ -31,6 +24,6 @@ fi
     cd ..
 
 # Create zip file of binaries
-    cp GSACOIN/src/__decenomy__d GSACOIN/src/__decenomy__-cli GSACOIN/src/__decenomy__-tx GSACOIN/src/qt/__decenomy__-qt GSACOIN/__Decenomy__-Core.dmg .
-    zip __GSACOIN__-MacOS.zip __decenomy__d __decenomy__-cli __decenomy__-tx __decenomy__-qt __Decenomy__-Core.dmg
-    rm -f __decenomy__d __decenomy__-cli __decenomy__-tx __decenomy__-qt __Decenomy__-Core.dmg
+    cp GSACOIN/src/gsad GSACOIN/src/gsa-cli GSACOIN/src/gsa-tx GSACOIN/src/qt/gsa-qt GSACOIN/gsa_-Core.dmg .
+    zip GSA-MacOS.zip gsad gsa-cli gsa-tx gsa-qt gsa-Core.dmg
+    rm -f gsad gsa-cli gsa-tx gsa-qt gsa-Core.dmg

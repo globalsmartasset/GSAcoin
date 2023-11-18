@@ -10,13 +10,6 @@ fi
 	sudo apt update
 	sudo apt install git zip unzip build-essential libtool bsdmainutils autotools-dev autoconf pkg-config automake python3 libqt5svg5-dev -y
 
-# Clone code from official Github repository
-	rm -rf GSACOIN
-	git clone https://github.com/globalsmartasset/GSAcoin.git
-
-# Entering directory
-	cd GSACOIN
-
 # Compile dependencies
 	cd depends
 	make -j$(echo $CPU_CORES) HOST=x86_64-pc-linux-gnu 
@@ -29,6 +22,6 @@ fi
 	cd ..
 
 # Create zip file of binaries
-	cp GSACOIN/src/__decenomy__d GSACOIN/GSACOIN/__decenomy__-cli GSACOIN/GSACOIN/__decenomy__-tx GSACOIN/src/qt/__decenomy__-qt .
-	zip __GSACOIN__-$(git describe --abbrev=0 --tags | sed s/v//)-Linux.zip __decenomy__d __decenomy__-cli __decenomy__-tx __decenomy__-qt
-	rm -f __decenomy__d __decenomy__-cli __decenomy__-tx __decenomy__-qt
+	cp GSACOIN/src/gsad GSACOIN/src/gsa-cli GSACOIN/src/gsa-tx GSACOIN/src/qt/gsa-qt .
+    zip GSA-MacOS.zip gsad gsa-cli gsa-tx gsa-qt
+    rm -f gsad gsa-cli gsa-tx gsa-qt

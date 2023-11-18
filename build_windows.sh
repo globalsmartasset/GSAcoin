@@ -11,13 +11,6 @@ fi
 	sudo apt install git zip unzip build-essential libtool bsdmainutils autotools-dev autoconf pkg-config automake python3 curl g++-mingw-w64-x86-64 libqt5svg5-dev -y
 	echo "1" | sudo update-alternatives --config x86_64-w64-mingw32-g++
 
-# Clone code from official Github repository
-	rm -rf GSACOIN
-	git clone https://github.com/globalsmartasset/GSAcoin.git
-
-# Entering directory
-	cd GSACOIN
-
 # Compile dependencies
 	cd depends
 	make -j$(echo $CPU_CORES) HOST=x86_64-w64-mingw32 
@@ -30,6 +23,6 @@ fi
 	cd ..
 
 # Create zip file of binaries
-	cp GSACOIN/src/__decenomy__d.exe GSACOIN/src/__decenomy__-cli.exe GSACOIN/src/__decenomy__-tx.exe GSACOIN/src/qt/__decenomy__-qt.exe .
-	zip __GSACOIN__-Windows.zip __decenomy__d.exe __decenomy__-cli.exe __decenomy__-tx.exe __decenomy__-qt.exe
-	rm -f __decenomy__d.exe __decenomy__-cli.exe __decenomy__-tx.exe __decenomy__-qt.exe
+	cp GSACOIN/src/gsad.exe GSACOIN/src/gsa-cli.exe GSACOIN/src/gsa-tx.exe GSACOIN/src/qt/gsa-qt.exe .
+	zip GSA-Windows.zip gsad.exe gsa-cli.exe gsa-tx.exe gsa-qt.exe
+	rm -f gsad.exe gsa-cli.exe gsa-tx.exe gsa-qt.exe
