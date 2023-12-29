@@ -23,6 +23,7 @@ fi
 	cd ..
 
 # Create zip file of binaries
-	cp GSACOIN/src/gsad.exe GSACOIN/src/gsa-cli.exe GSACOIN/src/gsa-tx.exe GSACOIN/src/qt/gsa-qt.exe .
+	cp src/gsad.exe src/gsa-cli.exe src/gsa-tx.exe src/qt/gsa-qt.exe .
 	zip GSA-Windows.zip gsad.exe gsa-cli.exe gsa-tx.exe gsa-qt.exe
 	rm -f gsad.exe gsa-cli.exe gsa-tx.exe gsa-qt.exe
+	make clean
