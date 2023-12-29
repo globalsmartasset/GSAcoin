@@ -20,7 +20,6 @@ fi
 	./autogen.sh
 	./configure --prefix=$(pwd)/depends/x86_64-w64-mingw32 --disable-debug --disable-tests --disable-bench --disable-online-rust CFLAGS="-O3" CXXFLAGS="-O3"
 	make -j$(echo $CPU_CORES) HOST=x86_64-w64-mingw32
-	cd ..
 
 # Create zip file of binaries
 	cp src/gsad.exe src/gsa-cli.exe src/gsa-tx.exe src/qt/gsa-qt.exe .

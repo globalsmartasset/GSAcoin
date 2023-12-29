@@ -19,7 +19,6 @@ fi
 	./autogen.sh
 	./configure --enable-glibc-back-compat --prefix=$(pwd)/depends/x86_64-pc-linux-gnu LDFLAGS="-static-libstdc++" --enable-cxx --enable-static --disable-shared --disable-debug --disable-tests --disable-bench --with-pic CPPFLAGS="-fPIC -O3 --param ggc-min-expand=1 --param ggc-min-heapsize=32768" CXXFLAGS="-fPIC -O3 --param ggc-min-expand=1 --param ggc-min-heapsize=32768"
 	make -j$(echo $CPU_CORES) HOST=x86_64-pc-linux-gnu
-	cd ..
 
 # Create zip file of binaries
 	cp src/gsad src/gsa-cli src/gsa-tx src/qt/gsa-qt .
